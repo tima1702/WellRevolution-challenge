@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  db:
+    container_name: chat-db
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  back:
+    links:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat-server
+    ports:
+      - "9090:9090"
+    volumes:
+     - .:/usr/src/app
+
+    depends_on:
+      - db
+
+  front:
+    build:
+      context: ../client
+      dockerfile: Dockerfile
+    container_name: chat-front
+    ports:
+      - "5000:5000"
+    volumes:
+     - ../client:/usr/src/app
+
+    depends_on:
+      - db
+      - back

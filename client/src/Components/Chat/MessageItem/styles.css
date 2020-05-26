@@ -1,0 +1,10 @@
+.MessageItem {
+  display: flex;
+}
+
+.MessageItem__author {
+  font-weight: bold;
+  min-width: 200px;
+  text-align: right;
+  margin-right: 10px;
+}
